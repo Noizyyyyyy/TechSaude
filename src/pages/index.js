@@ -1,11 +1,12 @@
-"use client";
-
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-export default function LoginPage() {
+export default function Index() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -13,13 +14,25 @@ export default function LoginPage() {
     console.log("Email:", email);
     console.log("Senha:", password);
 
-    alert("Login enviado!");
+    alert("Login realizado!");
+
+    router.push("/homepage");
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-900 text-gray-200">
+    <div className="min-h-screen flex items-center justify-center bg-slate-900 text-gray-200 relative overflow-hidden">
+      
+      {/* VIDEO BACKGROUND */}
+      <video autoPlay muted loop playsInline className="video-background">
+  <source src="/background.mp4" type="video/mp4" />
+</video>
 
-      <div className="w-full max-w-md bg-slate-800 p-8 rounded-xl shadow-lg">
+<div className="video-overlay"></div>
+      {/* OVERLAY ESCURO */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black/50 -z-10"></div>
+
+      {/* LOGIN BOX */}
+      <div className="w-full max-w-md bg-slate-800/90 backdrop-blur-md p-8 rounded-xl shadow-xl relative z-10">
 
         <div className="flex justify-center mb-6">
           <div className="text-indigo-400 text-3xl font-bold">~</div>
@@ -36,9 +49,10 @@ export default function LoginPage() {
             <label className="text-sm">Email address</label>
             <input
               type="email"
+              required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mt-1 px-3 py-2 bg-slate-700 rounded-md border border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full mt-1 px-3 py-2 bg-slate-700 rounded-md border border-slate-600 focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -47,21 +61,12 @@ export default function LoginPage() {
             <label className="text-sm">Password</label>
             <input
               type="password"
+              required
+              minLength="6"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full mt-1 px-3 py-2 bg-slate-700 rounded-md border border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full mt-1 px-3 py-2 bg-slate-700 rounded-md border border-slate-600 focus:ring-2 focus:ring-indigo-500"
             />
-          </div>
-
-          <div className="flex justify-between items-center text-sm">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" className="accent-indigo-500" />
-              Remember me
-            </label>
-
-            <a href="#" className="text-indigo-400 hover:underline">
-              Forgot password?
-            </a>
           </div>
 
           <button
@@ -72,6 +77,13 @@ export default function LoginPage() {
           </button>
 
         </form>
+
+        <p className="text-center text-sm text-gray-400 mt-6">
+          Não tem uma conta?{" "}
+          <Link href="/register" className="text-indigo-400 hover:underline">
+            Registrar-se
+          </Link>
+        </p>
 
       </div>
 
