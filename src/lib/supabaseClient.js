@@ -1,5 +1,7 @@
+// src/lib/supabase.js
 import { createClient } from '@supabase/supabase-js'
 
+// Essas variáveis serão lidas da Vercel quando o site estiver online
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
